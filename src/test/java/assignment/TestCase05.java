@@ -6,13 +6,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pom.*;
+import screenshot.ScreenshotTaker;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCase05 {
     @Test
     public void TestCase05() {
-        String firstname = "A", middlename = "B", lastname = "C", email = "pruss@ee.com",
+        // (Note) Change email at EACH runtime
+        String firstname = "A", middlename = "B", lastname = "C", email = "toto@ee.com",
         password = "000000";
 
         // Step 1. Go to http://live.techpanda.org/
@@ -34,6 +36,7 @@ public class TestCase05 {
         String newURL = driver.getCurrentUrl();
 
         // Step 5. Verify Registration is done. Expected account registration done.
+        ScreenshotTaker.takeScreenshot(driver, "TestCase05/Test01.png");
         assertEquals("http://live.techpanda.org/index.php/customer/account/index/",newURL);
 
         // Step 6. Go to TV menu
@@ -55,6 +58,10 @@ public class TestCase05 {
         String successMessage = notification.getText();
 
         // Step 10. Check wishlist is shared. Expected wishlist shared successfully
+        ScreenshotTaker.takeScreenshot(driver, "TestCase05/Test02.png");
         assertEquals("Your Wishlist has been shared.", successMessage);
+
+        // Finally: Close the driver
+        driver.close();
     }
 }

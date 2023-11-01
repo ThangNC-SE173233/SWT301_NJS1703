@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import screenshot.ScreenshotTaker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +25,7 @@ public class TestCase01 {
         // Step 2. Verify Title of the page
         WebElement title = driver.findElement(By.className("page-title"));
         assertEquals("THIS IS DEMO SITE FOR   ", title.getText());
+        ScreenshotTaker.takeScreenshot(driver, "TestCase01/Test01.png");
 
         // Step 3. Click on -> MOBILE -> menu
         WebElement MOBILElink = driver.findElement(By.className("first"));
@@ -47,6 +49,7 @@ public class TestCase01 {
 
         Collections.sort(test_names);
         assertEquals(test_names, actual_names);
+        ScreenshotTaker.takeScreenshot(driver, "TestCase01/Test02.png");
 
         // Finally: Close the driver
         driver.close();

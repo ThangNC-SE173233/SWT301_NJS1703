@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import screenshot.ScreenshotTaker;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +35,7 @@ public class TestCase02 {
 
         // Step 6. Compare Product value in list and details page should be equal ($100).
         assertEquals(test_value, actual_value);
+        ScreenshotTaker.takeScreenshot(driver, "TestCase02/Test01.png");
 
         // Finally: Close the driver
         driver.close();

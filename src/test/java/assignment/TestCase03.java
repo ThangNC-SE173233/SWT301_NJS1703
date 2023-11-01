@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import screenshot.ScreenshotTaker;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,6 +37,7 @@ public class TestCase03 {
 
         // Step 5. Verify the error message
         String actual_error = message.getText();
+        ScreenshotTaker.takeScreenshot(driver, "TestCase03/Test01.png");
         assertEquals("The requested quantity for \"Sony Xperia\" is not available.", actual_error);
 
         // Finally: Close the driver
@@ -64,6 +66,7 @@ public class TestCase03 {
         WebElement header = driver.findElement(By.className("page-title"));
         String actual_message = header.findElement(By.xpath("./child::*")).getText();
         assertEquals("SHOPPING CART IS EMPTY", actual_message);
+        ScreenshotTaker.takeScreenshot(driver, "TestCase03/Test02.png");
 
         // Finally: Close the driver
         driver.close();

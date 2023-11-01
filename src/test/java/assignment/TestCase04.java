@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import screenshot.ScreenshotTaker;
 
 import java.util.ArrayList;
 
@@ -54,6 +55,7 @@ public class TestCase04 {
         actual_names.add(new_iphone.getText());
 
         assertEquals(test_names, actual_names);
+        ScreenshotTaker.takeScreenshot(driver, "TestCase04/Test01.png");
 
         // Finally: Close all popups and the driver
         driver.close();
