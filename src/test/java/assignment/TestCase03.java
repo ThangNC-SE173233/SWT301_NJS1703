@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pom.*;
 import screenshot.ScreenshotTaker;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,26 +18,19 @@ public class TestCase03 {
         driver.get("http://live.techpanda.org/");
 
         // Step 2. Click on -> MOBILE -> menu
-        WebElement MOBILElink = driver.findElement(By.className("first"));
-        MOBILElink.click(); // Webpage is now http://live.techpanda.org/index.php/mobile.html
+        HomePage home = new HomePage(driver);
+        driver = home.goTo("mobile"); // Webpage is now http://live.techpanda.org/index.php/mobile.html
 
         // Step 3. In the list of all mobile , click on ADD TO CART for Sony Xperia mobile
-        WebElement sony = driver.findElement(By.xpath("//div[h2/a/@title='Sony Xperia']"));
-        sony.findElement(By.className("btn-cart"));
-        sony.click();
+        MobilePage mp = new MobilePage(driver);
+        driver = mp.goTo("sony");
 
         // Step 4. Change QTY value to 1000 and click UPDATE button. Expected that an error is displayed
-        WebElement qty = driver.findElement(By.xpath("//input[@title='Qty']"));
-        qty.clear();
-        qty.sendKeys("1000");
-
-        WebElement update = driver.findElement(By.xpath("//button[@title='Update']"));
-        update.click();
-
-        WebElement message = driver.findElement(By.className("error"));
+        String value = "1000";
+        CartPage cp = new CartPage(driver);
+        String actual_error = cp.getErrorMessage(value);
 
         // Step 5. Verify the error message
-        String actual_error = message.getText();
         ScreenshotTaker.takeScreenshot(driver, "TestCase03/Test01.png");
         assertEquals("The requested quantity for \"Sony Xperia\" is not available.", actual_error);
 
@@ -50,23 +44,22 @@ public class TestCase03 {
         driver.get("http://live.techpanda.org/");
 
         // Step 2. Click on -> MOBILE -> menu
-        WebElement MOBILElink = driver.findElement(By.className("first"));
-        MOBILElink.click(); // Webpage is now http://live.techpanda.org/index.php/mobile.html
+        HomePage home = new HomePage(driver);
+        driver = home.goTo("mobile"); // Webpage is now http://live.techpanda.org/index.php/mobile.html
 
         // Step 3. In the list of all mobile , click on ADD TO CART for Sony Xperia mobile
-        WebElement sony = driver.findElement(By.xpath("//div[h2/a/@title='Sony Xperia']"));
-        sony.findElement(By.className("btn-cart"));
-        sony.click();
+        MobilePage mp = new MobilePage(driver);
+        driver = mp.goTo("sony");
 
         // Step 6. Then click on EMPTY CART link in the footer of list of all mobiles
-        WebElement empty = driver.findElement(By.id("empty_cart_button"));
-        empty.click();
+        CartPage cp = new CartPage(driver);
+        driver = cp.goTo("empty cart");
 
         // Step 7. Verify that a message "SHOPPING CART IS EMPTY" is shown.
-        WebElement header = driver.findElement(By.className("page-title"));
-        String actual_message = header.findElement(By.xpath("./child::*")).getText();
-        assertEquals("SHOPPING CART IS EMPTY", actual_message);
+        String actual_message = cp.getTitle();
+
         ScreenshotTaker.takeScreenshot(driver, "TestCase03/Test02.png");
+        assertEquals("SHOPPING CART IS EMPTY", actual_message);
 
         // Finally: Close the driver
         driver.close();

@@ -12,18 +12,18 @@ import java.time.Duration;
 public class CheckOut {
     protected WebDriver driver;
 
-    private By byFirstName = By.id("billing:firstname");
-    private By byMiddleName = By.id("billing:middlename");
-    private By byLastName = By.id("billing:lastname");
-    private By byCompany = By.id("billing:company");
-    private By byAddress = By.id("billing:street1");
-    private By byAddressOptional = By.id("billing:street2");
-    private By byCity = By.id("billing:city");
-    private By byRegion = By.id("billing:region_id"); //Dropdown menu
-    private By byZIP = By.id("billing:postcode");
-    private By byCountry = By.id("billing:country_id");
-    private By byTelephone = By.id("billing:telephone");
-    private By byFax = By.id("billing:fax");
+    private final By byFirstName = By.id("billing:firstname");
+    private final By byMiddleName = By.id("billing:middlename");
+    private final By byLastName = By.id("billing:lastname");
+    private final By byCompany = By.id("billing:company");
+    private final By byAddress = By.id("billing:street1");
+    private final By byAddressOptional = By.id("billing:street2");
+    private final By byCity = By.id("billing:city");
+    private final By byRegion = By.id("billing:region_id"); //Dropdown menu
+    private final By byZIP = By.id("billing:postcode");
+    private final By byCountry = By.id("billing:country_id");
+    private final By byTelephone = By.id("billing:telephone");
+    private final By byFax = By.id("billing:fax");
     private By byContinue = By.xpath("//button[@title='Continue']");
     public CheckOut(WebDriver driver) {
         this.driver = driver;

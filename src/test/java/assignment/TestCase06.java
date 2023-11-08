@@ -22,8 +22,8 @@ public class TestCase06 {
         driver.get("http://live.techpanda.org/");
 
         // Step 2. Click on my account link
-        WebElement accountlink = driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account'][normalize-space()='My Account']"));
-        accountlink.click(); // Webpage is now http://live.techpanda.org/index.php/customer/account/login/
+        HomePage home = new HomePage(driver);
+        home.goTo("my account"); // Webpage is now http://live.techpanda.org/index.php/customer/account/login/
 
         // Step 3. Login in application using previously created credential
         String email = "demo@example.com";
@@ -33,15 +33,13 @@ public class TestCase06 {
         driver = login.signIn(email, password);
 
         // (Sidestep): Add LG LCD to your wish list
-        WebElement TVlink = driver.findElement(By.xpath("//a[normalize-space()='TV']"));
-        TVlink.click(); // Webpage is now http://live.techpanda.org/index.php/tv.html
+        Dashboard dash = new Dashboard(driver);
+        driver = dash.goTo("tv"); // Webpage is now http://live.techpanda.org/index.php/tv.html
 
-        WebElement lg = driver.findElement(By.xpath("//div[h2/a/@title='LG LCD']//div[@class='actions']//ul[@class='add-to-links']//li[1]//a[1]"));
-        lg.click();
+        TVPage tv = new TVPage(driver);
 
         // Step 5. In next page, Click ADD TO CART link
-        WebElement btnAddCart = driver.findElement(By.xpath("//button[@title='Add to Cart']"));
-        btnAddCart.click();
+        driver = tv.goTo("lg");
 
         // Step 6. Enter general shipping country, state/province and zip , then click Estimate
         String country = "United States";
@@ -52,14 +50,13 @@ public class TestCase06 {
         driver = cartPage.estimate(country, state, zip);
 
         // Step 7. Verify Shipping cost generated
-        WebElement shipping = null;
-        shipping = driver.findElement(By.xpath("//label[@for='s_method_flatrate_flatrate']//span[@class='price']"));
+        WebElement shipping = cartPage.getShipping();
 
-        assertNotNull(shipping);
         ScreenshotTaker.takeScreenshot(driver, "TestCase06/Test01.png");
+        assertNotNull(shipping);
 
         // Step 8. Select Shipping Cost, Update Total
-        String expectedShip = shipping.getText();
+        float expectedShip = cartPage.getPrice("shipping fr");
 
         WebElement comboFR = driver.findElement(By.id("s_method_flatrate_flatrate"));
         comboFR.click();
@@ -67,16 +64,14 @@ public class TestCase06 {
         WebElement updateTotal = driver.findElement(By.xpath("//button[@title='Update Total']"));
         updateTotal.click();
 
-        shipping = driver.findElement(By.xpath("//*[@id='shopping-cart-totals-table']//tbody//tr[2]//td[2]//span[@class='price']"));
-        String actualShip = shipping.getText();
+        float actualShip = cartPage.getActualShippingPrice();
 
         // Step 9. Verify shipping cost is added to total
-        assertEquals(expectedShip, actualShip);
         ScreenshotTaker.takeScreenshot(driver, "TestCase06/Test02.png");
+        assertEquals(expectedShip, actualShip);
 
         // Step 10. Click "Proceed to Checkout"
-        WebElement btnCheckout = driver.findElement(By.className("btn-checkout"));
-        btnCheckout.click();
+        driver = cartPage.goTo("checkout");
 
         // Step 11. Enter all information, and click Continue until you can click "Place Order"
         CheckOut check = new CheckOut(driver);

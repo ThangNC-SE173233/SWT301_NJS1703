@@ -6,13 +6,13 @@ import org.openqa.selenium.WebDriver;
 
 public class Register {
     protected WebDriver driver;
-    private By byFirstName = By.id("firstname");
-    private By byMiddleName = By.id("middlename");
-    private By byLastName = By.id("lastname");
-    private By byEmailAddress = By.id("email_address");
-    private By byPassword = By.id("password");
-    private By byConfirmation = By.id("confirmation");
-    private By byRegister = By.xpath("//button[@title='Register']");
+    private final By byFirstName = By.id("firstname");
+    private final By byMiddleName = By.id("middlename");
+    private final By byLastName = By.id("lastname");
+    private final By byEmailAddress = By.id("email_address");
+    private final By byPassword = By.id("password");
+    private final By byConfirmation = By.id("confirmation");
+    private final By byRegister = By.xpath("//button[@title='Register']");
 
     public Register(WebDriver driver) {
         this.driver = driver;

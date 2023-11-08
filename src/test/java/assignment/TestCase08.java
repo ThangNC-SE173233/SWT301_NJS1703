@@ -22,8 +22,8 @@ public class TestCase08 {
         driver.get("http://live.techpanda.org/");
 
         // Step 2. Click on my account link
-        WebElement accountlink = driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account'][normalize-space()='My Account']"));
-        accountlink.click(); // Webpage is now http://live.techpanda.org/index.php/customer/account/login/
+        HomePage home = new HomePage(driver);
+        home.goTo("my account"); // Webpage is now http://live.techpanda.org/index.php/customer/account/login/
 
         // Step 3. Login in application using previously created credential
         String email = "demo@example.com";
@@ -33,8 +33,8 @@ public class TestCase08 {
         driver = login.signIn(email, password);
 
         // Step 4. Click on 'My Orders'
-        WebElement myOrders = driver.findElement(By.xpath("//a[@href='http://live.techpanda.org/index.php/sales/order/history/']"));
-        myOrders.click();
+        Dashboard dash = new Dashboard(driver);
+        driver = dash.goTo("my orders");
 
         // Step 5. Click on 'REORDER'
         WebElement reOrder = driver.findElement(By.className("link-reorder"));
@@ -44,9 +44,9 @@ public class TestCase08 {
         String oldQuantity = "1";
         String newQuantity = "10";
 
-        ShoppingPage page = new ShoppingPage(driver);
-        String oldPrice = page.getTotalPrice(oldQuantity);
-        String newPrice = page.getTotalPrice(newQuantity);
+        CartPage page = new CartPage(driver);
+        float oldPrice = page.getTotalPrice(oldQuantity);
+        float newPrice = page.getTotalPrice(newQuantity);
 
         driver = page.getDriver();
         assertNotEquals(oldPrice, newPrice);

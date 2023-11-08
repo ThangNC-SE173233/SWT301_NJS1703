@@ -18,8 +18,8 @@ public class TestCase07 {
         driver.get("http://live.techpanda.org/");
 
         // Step 2. Click on my account link
-        WebElement accountlink = driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account'][normalize-space()='My Account']"));
-        accountlink.click(); // Webpage is now http://live.techpanda.org/index.php/customer/account/login/
+        HomePage home = new HomePage(driver);
+        home.goTo("my account"); // Webpage is now http://live.techpanda.org/index.php/customer/account/login/
 
         // Step 3. Login in application using previously created credential
         String email = "demo@example.com";
@@ -29,8 +29,8 @@ public class TestCase07 {
         driver = login.signIn(email, password);
 
         // Step 4. Click on 'My Orders'
-        WebElement myOrders = driver.findElement(By.xpath("//a[@href='http://live.techpanda.org/index.php/sales/order/history/']"));
-        myOrders.click();
+        Dashboard dash = new Dashboard(driver);
+        driver = dash.goTo("my orders");
 
         // Step 5. Click on 'View Order'
         WebElement thisOrder = driver.findElement(By.xpath("//a[contains(text(),'View Order')]"));
@@ -47,8 +47,9 @@ public class TestCase07 {
         }
 
         String actualURL = driver.getCurrentUrl();
-        assertTrue(actualURL.startsWith("http://live.techpanda.org/index.php/sales/order/print/order_id/"));
+
         ScreenshotTaker.takeScreenshot(driver, "TestCase07/Test01.png");
+        assertTrue(actualURL.startsWith("http://live.techpanda.org/index.php/sales/order/print/order_id/"));
 
         // Finally: Close all popups and the driver
         driver.close();
