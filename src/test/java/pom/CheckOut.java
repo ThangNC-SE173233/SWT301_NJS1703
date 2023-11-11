@@ -66,10 +66,12 @@ public class CheckOut {
         Select select = new Select(driver.findElement(byRegion));
         select.selectByVisibleText(state);
 
+        driver.findElement(byZIP).clear();
         driver.findElement(byZIP).sendKeys(zip);
 
         driver.findElement(byCountry).sendKeys(country);
 
+        driver.findElement(byTelephone).clear();
         driver.findElement(byTelephone).sendKeys(telephone);
 
         driver.findElement(byContinue).click();

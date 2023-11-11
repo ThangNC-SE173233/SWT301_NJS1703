@@ -14,7 +14,7 @@ public class TestCase05 {
     @Test
     public void TestCase05() {
         // (Note) Change email at EACH runtime
-        String firstname = "A", middlename = "B", lastname = "C", email = "100@ee.com",
+        String firstname = "A", middlename = "B", lastname = "C", email = "somethinglikethat@email.com",
         password = "000000";
 
         // Step 1. Go to http://live.techpanda.org/

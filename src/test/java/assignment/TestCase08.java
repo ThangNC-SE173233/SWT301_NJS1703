@@ -26,8 +26,8 @@ public class TestCase08 {
         home.goTo("my account"); // Webpage is now http://live.techpanda.org/index.php/customer/account/login/
 
         // Step 3. Login in application using previously created credential
-        String email = "demo@example.com";
-        String password = "000000";
+        String email = "chi123456@gmail.com";
+        String password = "123456";
 
         Login login = new Login(driver);
         driver = login.signIn(email, password);
